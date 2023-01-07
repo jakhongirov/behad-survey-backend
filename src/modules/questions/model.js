@@ -104,7 +104,7 @@ const DELETE_SURVAY = `
 `
 
 const getAll = () => fetchALL(All_SURVAYS)
-const getById = (id) => fetch(BY_ID, id)
+const getById = (id) => fetchALL(BY_ID, id)
 const postSurvay = (title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter) => fetch(ADD_SURVAY, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
 const putSurvay = (id, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter) => fetch(UPDATE_SURVAY, id, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
 const updateStatus = (id, status) => fetch(SURVAY_UPDATE_STATUS, id, status)
