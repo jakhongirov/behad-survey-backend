@@ -72,6 +72,34 @@ module.exports = {
         }
     },
 
+
+    PUT_SURVAY_STATUS: async (req, res) => {
+        try {
+            const { id, status } = req.body
+
+            const updateStatus = await model.updateStatus(id, status)
+
+            if (updateStatus) {
+                return res.json({
+                    status: 410,
+                    message: "Gone"
+                })
+            } else {
+                return res.json({
+                    status: 400,
+                    message: "Bad request"
+                })
+            }
+
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: 500,
+                message: "Internal Server Error",
+            })
+        }
+    },
+
     DELETE_SURVAY: async (req, res) => {
         try {
             const { id } = req.body

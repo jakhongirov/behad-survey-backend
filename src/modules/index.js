@@ -8,6 +8,7 @@ router
     .get('/survays', survay.GET_SURVAY)
     .post('/Addsurvay', survay.ADD_SURVAY)
     .put('/updatesurvay', survay.PUT_SURVAY)
+    .put('/updateSurvayStatus', survay.PUT_SURVAY_STATUS)
     .delete('/deletesurvay', survay.DELETE_SURVAY)
 
     .get('/answers', asnwer.GET_ANSWERS)

@@ -85,6 +85,16 @@ const UPDATE_SURVAY = `
         survay_id = $1 RETURNING * ;
 `;
 
+const SURVAY_UPDATE_STATUS = `
+    Update 
+        survays 
+    SET 
+        survay_active = $2
+    WHERE
+        survay_id = $1
+    RETURNING *;
+`
+
 const DELETE_SURVAY = `
     DELETE FROM
         survays
@@ -97,6 +107,7 @@ const getAll = () => fetchALL(All_SURVAYS)
 const getById = (id) => fetch(BY_ID, id)
 const postSurvay = (title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter) => fetch(ADD_SURVAY, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
 const putSurvay = (id, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter) => fetch(UPDATE_SURVAY, id, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
+const updateStatus = (id, status) => fetch(SURVAY_UPDATE_STATUS, id, status)
 const deleteSurvay = (id) => fetch(DELETE_SURVAY, id)
 
 module.exports = {
@@ -104,5 +115,6 @@ module.exports = {
     getAll,
     postSurvay,
     putSurvay,
+    updateStatus,
     deleteSurvay
 }

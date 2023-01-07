@@ -98,7 +98,7 @@ module.exports = {
                         })
                     } else {
                         return res.json({
-                            status: 204,
+                            status: 404,
                             message: "Not found"
                         })
                     }
@@ -110,10 +110,18 @@ module.exports = {
                 }
             } else {
                 const updateStatus = await model.updateStatus(survayId)
-                return res.json({
-                    status: 410,
-                    message: "Gone"
-                })
+
+                if (updateStatus) {
+                    return res.json({
+                        status: 410,
+                        message: "Gone"
+                    })
+                } else {
+                    return res.json({
+                        status: 400,
+                        message : "Bad request"
+                    })
+                }
             }
 
         } catch (error) {
