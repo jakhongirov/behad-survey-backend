@@ -12,6 +12,33 @@ module.exports = {
                     data: getById
                 })
             } else {
+                const getAll = await model.getStatus()
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: getAll
+                })
+            }
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: 500,
+                message: "Internal Server Error",
+            })
+        }
+    },
+
+    GET_SURVAY_ADMIN: async (req, res) => {
+        try {
+            const { id } = req.query
+            if (id) {
+                const getById = await model.getById(id)
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: getById
+                })
+            } else {
                 const getAll = await model.getAll()
                 return res.json({
                     status: 200,

@@ -1,6 +1,17 @@
 const { fetch, fetchALL } = require("../../lib/postgres");
 
-const All_SURVAYS = `
+const All_SURVAYS_STATUS = `
+    SELECT
+        *, to_char(survay_create_date, 'HH24:MM/MM.DD.YYYY')
+    FROM
+        survays
+    Where 
+        survay_active = true
+    ORDER BY
+        survay_id DESC;
+`;
+
+const All_SURVAYS_ADMIN = `
     SELECT
         *, to_char(survay_create_date, 'HH24:MM/MM.DD.YYYY')
     FROM
@@ -8,6 +19,7 @@ const All_SURVAYS = `
     ORDER BY
         survay_id DESC;
 `;
+
 
 const BY_ID = `
     SELECT
@@ -57,7 +69,7 @@ const ADD_SURVAY = `
             $13,
             $14,
             $15,
-            $16
+            ARRAY [ $16 ]
         ) RETURNING *;
 `;
 
@@ -103,7 +115,8 @@ const DELETE_SURVAY = `
     RETURNING *;
 `
 
-const getAll = () => fetchALL(All_SURVAYS)
+const getAll = () => fetchALL(All_SURVAYS_ADMIN)
+const getStatus = () => fetchALL(All_SURVAYS_STATUS)
 const getById = (id) => fetchALL(BY_ID, id)
 const postSurvay = (title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter) => fetch(ADD_SURVAY, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
 const putSurvay = (id, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter) => fetch(UPDATE_SURVAY, id, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
@@ -113,6 +126,7 @@ const deleteSurvay = (id) => fetch(DELETE_SURVAY, id)
 module.exports = {
     getById,
     getAll,
+    getStatus,
     postSurvay,
     putSurvay,
     updateStatus,
