@@ -134,7 +134,7 @@ const USER_SURVAY_ID = `
         users   
     WHERE
         user_id = $1 and
-        $2 != ANY (user_servays)
+        $2 = ANY (user_servays)
     ORDER BY
         user_id DESC;
 `

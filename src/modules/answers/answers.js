@@ -86,7 +86,7 @@ module.exports = {
             if (getbySurvayId.length != getSurvayById.survay_limit) {
                 const userSurvay = await model.getUserSurvay(userId, survayId)
 
-                if (userSurvay) {
+                if (!userSurvay) {
                     const addAnswer = await model.addAnswer(survayId, userId, answer, comment)
                     const addUserSurvay = await model.addUserSurvay(userId, survayId)
 
