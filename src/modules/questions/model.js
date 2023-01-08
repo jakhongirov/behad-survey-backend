@@ -92,7 +92,7 @@ const UPDATE_SURVAY = `
         survay_country = $14,
         survay_city = $15,
         survay_limit = $16,
-        survay_filter = array_append(survay_filter, $17)
+        survay_filter = $17
     WHERE
         survay_id = $1 RETURNING * ;
 `;
