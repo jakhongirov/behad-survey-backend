@@ -7,16 +7,16 @@ module.exports = {
 
             if (answer && survayId) {
                 const getbySurvayIdAnswer = await model.getbySurvayIdAnswer(Number(survayId), Number(answer))
-                const getbyMale = await model.getbyMale(Number(survayId), Number(answer))
-                const getbyFemale = await model.getbyFemale(Number(survayId), Number(answer))
+                const getbyMaleWithAnswer = await model.getbyMaleWithAnswer(Number(survayId), Number(answer))
+                const getbyFemaleWithAnswer = await model.getbyFemaleWithAnswer(Number(survayId), Number(answer))
                 if (getbySurvayIdAnswer) {
                     return res.json({
                         status: 200,
                         message: "Success",
                         data: getbySurvayIdAnswer,
                         count: getbySurvayIdAnswer.length,
-                        male: getbyMale.length,
-                        female: getbyFemale.length
+                        male: getbyMaleWithAnswer.length,
+                        female: getbyFemaleWithAnswer.length
                     })
                 } else {
                     return res.json({
@@ -26,11 +26,16 @@ module.exports = {
                 }
             } else if (survayId) {
                 const getbySurvayId = await model.getbySurvayId(Number(survayId))
+                const getbyMale = await model.getbyMale(Number(survayId))
+                const getbyFemale = await model.getbyFemale(Number(survayId))
                 if (getbySurvayId) {
                     return res.json({
                         status: 200,
                         message: "Success",
-                        data: getbySurvayId
+                        data: getbySurvayId,
+                        count: getbySurvayId.length,
+                        male: getbyMale.length,
+                        female: getbyFemale.length
                     })
                 } else {
                     return res.json({
