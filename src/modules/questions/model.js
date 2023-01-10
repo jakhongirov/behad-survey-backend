@@ -6,9 +6,7 @@ const All_SURVAYS_STATUS = `
     FROM
         survays
     Where 
-        survay_active = true
-    ORDER BY
-        survay_id DESC;
+        survay_active = true;
 `;
 
 const All_SURVAYS_ADMIN = `
