@@ -67,7 +67,7 @@ const ADD_SURVAY = `
             $12,
             $13,
             $14,
-            ARRAY [ $15 ]
+            $15
         ) RETURNING *;
 `;
 

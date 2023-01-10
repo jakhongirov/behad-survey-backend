@@ -15,7 +15,7 @@ CREATE TABLE survays (
     survay_active BOOLEAN DEFAULT true,
     survay_iscomment BOOLEAN DEFAULT false,
     survay_limit int,
-    survay_filter text [],
+    survay_filter int [],
     survay_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
