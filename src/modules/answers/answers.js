@@ -88,7 +88,32 @@ module.exports = {
             const getbySurvayId = await model.getbySurvayId(Number(survayId))
             const getSurvayById = await model.getSurvayById(survayId)
 
-            if (getbySurvayId.length != getSurvayById.survay_limit) {
+            if (getSurvayById.survay_limit === 0) {
+                const userSurvay = await model.getUserSurvay(userId, survayId)
+
+                if (!userSurvay) {
+                    const addAnswer = await model.addAnswer(survayId, userId, answer, comment)
+                    const addUserSurvay = await model.addUserSurvay(userId, survayId)
+
+                    if (addAnswer && addUserSurvay) {
+                        return res.json({
+                            status: 200,
+                            message: "Success",
+                            data: addAnswer
+                        })
+                    } else {
+                        return res.json({
+                            status: 404,
+                            message: "Not found"
+                        })
+                    }
+                } else {
+                    return res.json({
+                        status: 302,
+                        message: "Found"
+                    })
+                }
+            } else if (getbySurvayId.length != getSurvayById.survay_limit) {
                 const userSurvay = await model.getUserSurvay(userId, survayId)
 
                 if (!userSurvay) {
@@ -124,7 +149,7 @@ module.exports = {
                 } else {
                     return res.json({
                         status: 400,
-                        message : "Bad request"
+                        message: "Bad request"
                     })
                 }
             }
