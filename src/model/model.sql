@@ -6,7 +6,6 @@ CREATE TABLE survays (
     survay_v3 text DEFAULT 0,
     survay_v4 text DEFAULT 0,
     survay_v5 text DEFAULT 0,
-    survay_all BOOLEAN DEFAULT false,
     survay_male BOOLEAN DEFAULT false,
     survay_female BOOLEAN DEFAULT false,
     survay_min_age int not null,

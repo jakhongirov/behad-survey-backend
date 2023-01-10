@@ -57,8 +57,8 @@ module.exports = {
 
     ADD_SURVAY: async (req, res) => {
         try {
-            const { title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter } = req.body
-            const addSurvay = await model.postSurvay(title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
+            const { title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter } = req.body
+            const addSurvay = await model.postSurvay(title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
 
             if (addSurvay) {
                 return res.json({
@@ -79,8 +79,8 @@ module.exports = {
 
     PUT_SURVAY: async (req, res) => {
         try {
-            const { id, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter } = req.body
-            const puturvay = await model.putSurvay(id, title, v1, v2, v3, v4, v5, survay_all, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
+            const { id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter } = req.body
+            const puturvay = await model.putSurvay(id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
 
             if (puturvay) {
                 return res.json({
