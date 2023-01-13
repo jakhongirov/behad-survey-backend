@@ -139,14 +139,16 @@ const ADD_ANSWER = `
             survay_id,
             user_id,
             survay_answer,
-            survay_comment
+            survay_comment,
+            user_comment
         )
     VALUES
         (
             $1,
             $2,
             $3,
-            $4
+            $4,
+            $5
         ) RETURNING *;
 `;
 
@@ -193,20 +195,29 @@ const SURVAY_UPDATE_STATUS = `
     RETURNING *;
 `
 
+const ADD_COMMENT = `
+    UPDATE
+        users
+    SET
+        user_comment = $2
+    WHERE
+        user_id = $1 RETURNING * ;
+`
+
 const getAllSurvays = () => fetchALL(All_SURVAYS)
 const getbySurvayId = (survayId) => fetchALL(SURVAYS_ID, survayId)
 const getbyUseryId = (userId) => fetchALL(USERS_ID, userId)
 const getbySurvayIdAnswer = (survayId, answer) => fetchALL(SURVAYS_ID_ANSWER, survayId, answer)
 const getbyMaleWithAnswer = (survayId, answer) => fetchALL(SURVAYS_ID_ANSWER_MALE, survayId, answer)
 const getbyFemaleWithAnswer = (survayId, answer) => fetchALL(SURVAYS_ID_ANSWER_FEMALE, survayId, answer)
-const addAnswer = (survayId, userId, answer, comment) => fetch(ADD_ANSWER, survayId, userId, answer, comment)
+const addAnswer = (survayId, userId, answer, comment, user_comment) => fetch(ADD_ANSWER, survayId, userId, answer, comment, user_comment)
 const addUserSurvay = (userId, survayId) => fetch(ADD_USER_SURVAY, userId, survayId)
 const getUserSurvay = (userId, survayId) => fetch(USER_SURVAY_ID, userId, survayId)
 const getSurvayById = (survayId) => fetch(SURVAY_BY_ID, survayId)
 const updateStatus = (survayId) => fetch(SURVAY_UPDATE_STATUS, survayId)
-
 const getbyMale = (survayId) => fetchALL(SURVAYS_ID_MALE, survayId)
 const getbyFemale = (survayId) => fetchALL(SURVAYS_ID_FEMALE, survayId)
+const addCommitUser = (id, text) => fetch(ADD_COMMENT, id, text)
 
 module.exports = {
     getAllSurvays,
@@ -221,5 +232,6 @@ module.exports = {
     getSurvayById,
     updateStatus,
     getbyFemale,
-    getbyMale
+    getbyMale,
+    addCommitUser
 }

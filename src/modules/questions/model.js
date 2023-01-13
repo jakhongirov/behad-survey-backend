@@ -47,7 +47,9 @@ const ADD_SURVAY = `
             survay_country,
             survay_city,
             survay_limit,
-            survay_filter
+            survay_filter,
+            survay_main,
+            survay_v6_comment
         )
     VALUES
         (
@@ -65,7 +67,9 @@ const ADD_SURVAY = `
             $12,
             $13,
             $14,
-            $15
+            $15,
+            $16,
+            $17
         ) RETURNING *;
 `;
 
@@ -87,7 +91,9 @@ const UPDATE_SURVAY = `
         survay_country = $13,
         survay_city = $14,
         survay_limit = $15,
-        survay_filter = $16
+        survay_filter = $16,
+        survay_main = $17,
+        survay_v6_comment = $18 
     WHERE
         survay_id = $1 RETURNING * ;
 `;
@@ -113,8 +119,8 @@ const DELETE_SURVAY = `
 const getAll = () => fetchALL(All_SURVAYS_ADMIN)
 const getStatus = () => fetchALL(All_SURVAYS_STATUS)
 const getById = (id) => fetchALL(BY_ID, id)
-const postSurvay = (title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter) => fetch(ADD_SURVAY, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
-const putSurvay = (id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter) => fetch(UPDATE_SURVAY, id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter)
+const postSurvay = (title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment) => fetch(ADD_SURVAY, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment)
+const putSurvay = (id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment) => fetch(UPDATE_SURVAY, id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment)
 const updateStatus = (id, status) => fetch(SURVAY_UPDATE_STATUS, id, status)
 const deleteSurvay = (id) => fetch(DELETE_SURVAY, id)
 
