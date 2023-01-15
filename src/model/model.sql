@@ -1,6 +1,6 @@
 CREATE TABLE survays (
     survay_id bigserial PRIMARY KEY,
-    survay_title text not null, 
+    survay_title text not null,
     survay_v1 text DEFAULT 0,
     survay_v2 text DEFAULT 0,
     survay_v3 text DEFAULT 0,
@@ -18,6 +18,7 @@ CREATE TABLE survays (
     survay_filter int [],
     survay_main boolean,
     survay_v6_comment boolean,
+    app_key text REFERENCES apps(app_key) ON DELETE CASCADE,
     survay_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
