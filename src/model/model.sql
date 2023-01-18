@@ -28,6 +28,6 @@ CREATE TABLE survay_users (
     survay_id int not null REFERENCES survays(survay_id) ON DELETE CASCADE,
     survay_answer int,
     survay_comment text,
-    user_comment text,
+    v6_comment text,
     survay_users_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );

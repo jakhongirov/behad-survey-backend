@@ -5,10 +5,32 @@ module.exports = {
         try {
             const { survayId, userId, answer } = req.query
 
-            if (answer && survayId) {
+            if (survayId && answer == 6) {
+                const getbySurvayIdV6Comment = await model.getbySurvayIdV6Comment(Number(survayId))
+                const getbyMaleWithV6Comment = await model.getbyMaleWithV6Comment(Number(survayId))
+                const getbyFemaleWithV6Comment = await model.getbyFemaleWithV6Comment(Number(survayId))
+
+                if (getbySurvayIdV6Comment) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: getbySurvayIdV6Comment,
+                        count: getbySurvayIdV6Comment.length,
+                        male: getbyMaleWithV6Comment.length,
+                        female: getbyFemaleWithV6Comment.length
+                    })
+                } else {
+                    return res.json({
+                        status: 404,
+                        message: "Not found",
+                    })
+                }
+
+            } else if (answer && survayId) {
                 const getbySurvayIdAnswer = await model.getbySurvayIdAnswer(Number(survayId), Number(answer))
                 const getbyMaleWithAnswer = await model.getbyMaleWithAnswer(Number(survayId), Number(answer))
                 const getbyFemaleWithAnswer = await model.getbyFemaleWithAnswer(Number(survayId), Number(answer))
+
                 if (getbySurvayIdAnswer) {
                     return res.json({
                         status: 200,

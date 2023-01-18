@@ -140,7 +140,7 @@ const ADD_ANSWER = `
             user_id,
             survay_answer,
             survay_comment,
-            user_comment
+            v6_comment
         )
     VALUES
         (
@@ -204,6 +204,57 @@ const ADD_COMMENT = `
         user_id = $1 RETURNING * ;
 `
 
+const SURVAYS_ID_V6_COMMENT = `
+    select 
+        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        survay_users a
+    inner join
+        users b
+    on a.user_id = b.user_id
+    inner join
+        survays c
+    on a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.v6_comment != ''
+    ORDER BY
+        a.survay_user_id DESC;
+`;
+
+const SURVAYS_ID_V6_COMMENT_MALE = `
+    select 
+        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        survay_users a
+    inner join
+        users b
+    on a.user_id = b.user_id
+    inner join
+        survays c
+    on a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.v6_comment != '' and b.user_who = 'erkak'
+    ORDER BY
+        a.survay_user_id DESC;
+`;
+
+const SURVAYS_ID_V6_COMMENT_FEMALE = `
+    select 
+        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        survay_users a
+    inner join
+        users b
+    on a.user_id = b.user_id
+    inner join
+        survays c
+    on a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.v6_comment != '' and b.user_who = 'ayol'
+    ORDER BY
+        a.survay_user_id DESC;
+`;
+
 const getAllSurvays = () => fetchALL(All_SURVAYS)
 const getbySurvayId = (survayId) => fetchALL(SURVAYS_ID, survayId)
 const getbyUseryId = (userId) => fetchALL(USERS_ID, userId)
@@ -218,6 +269,9 @@ const updateStatus = (survayId) => fetch(SURVAY_UPDATE_STATUS, survayId)
 const getbyMale = (survayId) => fetchALL(SURVAYS_ID_MALE, survayId)
 const getbyFemale = (survayId) => fetchALL(SURVAYS_ID_FEMALE, survayId)
 const addCommitUser = (id, text) => fetch(ADD_COMMENT, id, text)
+const getbySurvayIdV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT, survayId)
+const getbyMaleWithV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT_MALE, survayId)
+const getbyFemaleWithV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT_FEMALE, survayId)
 
 module.exports = {
     getAllSurvays,
@@ -233,5 +287,8 @@ module.exports = {
     updateStatus,
     getbyFemale,
     getbyMale,
-    addCommitUser
+    addCommitUser,
+    getbySurvayIdV6Comment,
+    getbyMaleWithV6Comment,
+    getbyFemaleWithV6Comment
 }
