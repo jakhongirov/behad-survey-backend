@@ -44,7 +44,7 @@ module.exports = {
                     status: 200,
                     message: "Success",
                     data: getAll
-                })  
+                })
             }
         } catch (error) {
             console.log(error)
@@ -57,8 +57,8 @@ module.exports = {
 
     ADD_SURVAY: async (req, res) => {
         try {
-            const { title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment, app_key } = req.body
-            const addSurvay = await model.postSurvay(title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment, app_key)
+            const { title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment, app_key, user_id } = req.body
+            const addSurvay = await model.postSurvay(title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment, app_key, user_id)
 
             if (addSurvay) {
                 return res.json({
@@ -79,8 +79,8 @@ module.exports = {
 
     PUT_SURVAY: async (req, res) => {
         try {
-            const { id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main ,v6_comment, app_key } = req.body
-            const puturvay = await model.putSurvay(id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment, app_key)
+            const { id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment, app_key, user_id } = req.body
+            const puturvay = await model.putSurvay(id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment, app_key, user_id)
 
             if (puturvay) {
                 return res.json({

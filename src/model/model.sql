@@ -18,7 +18,8 @@ CREATE TABLE survays (
     survay_filter int [],
     survay_main boolean,
     survay_v6_comment boolean,
-    app_key text REFERENCES apps(app_key) ON DELETE CASCADE,
+    app_key text,
+    user_id int [] DEFAULT 0,
     survay_create_date timestamptz DEFAULT CURRENT_TIMESTAMP
 );
 
