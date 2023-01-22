@@ -23,8 +23,7 @@ const fetchALL = async (SQL, ...params) => {
     const { rows } = await client.query(SQL, params.length ? params : null);
     return rows;
   } finally {
-    await client.release();
-    await client.end()
+    client.release();
   }
 };
 
