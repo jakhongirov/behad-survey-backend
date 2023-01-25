@@ -125,7 +125,7 @@ module.exports = {
                                 const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v1}`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
@@ -136,7 +136,7 @@ module.exports = {
                                 const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v2}`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
@@ -146,7 +146,7 @@ module.exports = {
                                 const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v3}`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
@@ -156,7 +156,7 @@ module.exports = {
                                 const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v4}`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
@@ -166,7 +166,7 @@ module.exports = {
                                 const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v5}`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
@@ -175,9 +175,9 @@ module.exports = {
                                 const foundUser = await model.getUserById(userId)
                                 console.log(foundUser);
                                 const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${user_comment}`)
-                                
+
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
@@ -188,7 +188,7 @@ module.exports = {
                                 const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${comment}`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
