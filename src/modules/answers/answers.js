@@ -183,8 +183,8 @@ module.exports = {
                                     })
                                 }
                             } else if (comment && getSurvayById.survay_iscomment) {
-                                console.log(foundUser);
                                 const foundUser = await model.getUserById(userId)
+                                console.log(foundUser);
                                 const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${comment}`)
 
                                 if (addCommitUser) {
