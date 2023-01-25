@@ -122,7 +122,7 @@ module.exports = {
                         if (getSurvayById.survay_main) {
                             if (answer == 1) {
                                 const foundUser = await model.getUserById(userId)
-                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment} ${getSurvayById.survay_title}: ${getSurvayById.survay_v1}`)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v1} ---`)
 
                                 if (addCommitUser) {
                                     return res.json({
@@ -133,7 +133,7 @@ module.exports = {
 
                             } else if (answer == 2) {
                                 const foundUser = await model.getUserById(userId)
-                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment} ${getSurvayById.survay_title}: ${getSurvayById.survay_v2}`)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v2} ---`)
 
                                 if (addCommitUser) {
                                     return res.json({
@@ -143,7 +143,7 @@ module.exports = {
                                 }
                             } else if (answer == 3) {
                                 const foundUser = await model.getUserById(userId)
-                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment} ${getSurvayById.survay_title}: ${getSurvayById.survay_v3}`)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v3} ---`)
 
                                 if (addCommitUser) {
                                     return res.json({
@@ -153,7 +153,7 @@ module.exports = {
                                 }
                             } else if (answer == 4) {
                                 const foundUser = await model.getUserById(userId)
-                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment} ${getSurvayById.survay_title}: ${getSurvayById.survay_v4}`)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v4} ---`)
 
                                 if (addCommitUser) {
                                     return res.json({
@@ -163,7 +163,7 @@ module.exports = {
                                 }
                             } else if (answer == 5) {
                                 const foundUser = await model.getUserById(userId)
-                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment} ${getSurvayById.survay_title}: ${getSurvayById.survay_v5}`)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v5} ---`)
 
                                 if (addCommitUser) {
                                     return res.json({
@@ -174,7 +174,7 @@ module.exports = {
                             } else if (user_comment && getSurvayById.survay_v6_comment) {
                                 const foundUser = await model.getUserById(userId)
                                 console.log(foundUser);
-                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment} ${getSurvayById.survay_title}: ${user_comment}`)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${user_comment} ---`)
 
                                 if (addCommitUser) {
                                     return res.json({
@@ -185,7 +185,7 @@ module.exports = {
                             } else if (comment && getSurvayById.survay_iscomment) {
                                 const foundUser = await model.getUserById(userId)
                                 console.log(foundUser);
-                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment} ${getSurvayById.survay_title}: ${comment}`)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${comment} ---`)
 
                                 if (addCommitUser) {
                                     return res.json({
@@ -224,56 +224,74 @@ module.exports = {
 
                         if (getSurvayById.survay_main) {
                             if (answer == 1) {
-                                const addCommitUser = await model.addCommitUser(userId, `${getSurvayById.survay_title}: ${getSurvayById.survay_v1}`)
+                                const foundUser = await model.getUserById(userId)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v1} ---`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
                                 }
 
                             } else if (answer == 2) {
-                                const addCommitUser = await model.addCommitUser(userId, `${getSurvayById.survay_title}: ${getSurvayById.survay_v2}`)
+                                const foundUser = await model.getUserById(userId)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v2} ---`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
                                 }
                             } else if (answer == 3) {
-                                const addCommitUser = await model.addCommitUser(userId, `${getSurvayById.survay_title}: ${getSurvayById.survay_v3}`)
+                                const foundUser = await model.getUserById(userId)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v3} ---`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
                                 }
                             } else if (answer == 4) {
-                                const addCommitUser = await model.addCommitUser(userId, `${getSurvayById.survay_title}: ${getSurvayById.survay_v4}`)
+                                const foundUser = await model.getUserById(userId)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v4} ---`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
                                 }
                             } else if (answer == 5) {
-                                const addCommitUser = await model.addCommitUser(userId, `${getSurvayById.survay_title}: ${getSurvayById.survay_v5}`)
+                                const foundUser = await model.getUserById(userId)
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${getSurvayById.survay_v5} ---`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
                                 }
                             } else if (user_comment && getSurvayById.survay_v6_comment) {
-                                const addCommitUser = await model.addCommitUser(userId, `${getSurvayById.survay_title}: ${user_comment}`)
+                                const foundUser = await model.getUserById(userId)
+                                console.log(foundUser);
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${user_comment} ---`)
 
                                 if (addCommitUser) {
-                                    res.json({
+                                    return res.json({
+                                        status: 200,
+                                        message: "Add comment"
+                                    })
+                                }
+                            } else if (comment && getSurvayById.survay_iscomment) {
+                                const foundUser = await model.getUserById(userId)
+                                console.log(foundUser);
+                                const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${comment} ---`)
+
+                                if (addCommitUser) {
+                                    return res.json({
                                         status: 200,
                                         message: "Add comment"
                                     })
