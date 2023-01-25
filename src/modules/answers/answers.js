@@ -173,8 +173,9 @@ module.exports = {
                                 }
                             } else if (user_comment && getSurvayById.survay_v6_comment) {
                                 const foundUser = await model.getUserById(userId)
+                                console.log(foundUser);
                                 const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${user_comment}`)
-
+                                
                                 if (addCommitUser) {
                                     res.json({
                                         status: 200,
@@ -182,6 +183,7 @@ module.exports = {
                                     })
                                 }
                             } else if (comment && getSurvayById.survay_iscomment) {
+                                console.log(foundUser);
                                 const foundUser = await model.getUserById(userId)
                                 const addCommitUser = await model.addCommitUser(userId, `${foundUser.user_comment}, ${getSurvayById.survay_title}: ${comment}`)
 
