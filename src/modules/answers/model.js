@@ -255,6 +255,17 @@ const SURVAYS_ID_V6_COMMENT_FEMALE = `
         a.survay_user_id DESC;
 `;
 
+const USER_BY_ID = `
+    SELECT
+        *, to_char(user_create_date at time zone 'Asia/Tashkent', 'HH24:MM/MM.DD.YYYY')
+    FROM
+        users
+    WHERE
+        user_id = $1
+    ORDER BY
+        user_id DESC;
+`;
+
 const getAllSurvays = () => fetchALL(All_SURVAYS)
 const getbySurvayId = (survayId) => fetchALL(SURVAYS_ID, survayId)
 const getbyUseryId = (userId) => fetchALL(USERS_ID, userId)
@@ -272,6 +283,7 @@ const addCommitUser = (id, text) => fetch(ADD_COMMENT, id, text)
 const getbySurvayIdV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT, survayId)
 const getbyMaleWithV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT_MALE, survayId)
 const getbyFemaleWithV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT_FEMALE, survayId)
+const getUserById = (id) => fetch(USER_BY_ID, id)
 
 module.exports = {
     getAllSurvays,
@@ -290,5 +302,6 @@ module.exports = {
     addCommitUser,
     getbySurvayIdV6Comment,
     getbyMaleWithV6Comment,
-    getbyFemaleWithV6Comment
+    getbyFemaleWithV6Comment,
+    getUserById
 }
