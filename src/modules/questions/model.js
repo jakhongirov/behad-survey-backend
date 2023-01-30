@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const All_SURVAYS_STATUS = `
     SELECT
-        *, to_char(survay_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(survay_create_date, 'HH24:MI/MM.DD.YYYY')
     FROM
         survays
     Where 
@@ -11,17 +11,18 @@ const All_SURVAYS_STATUS = `
 
 const All_SURVAYS_ADMIN = `
     SELECT
-        *, to_char(survay_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(survay_create_date, 'HH24:MI/MM.DD.YYYY')
     FROM
         survays
     ORDER BY
-        survay_id DESC;
+        survay_id DESC
+    LIMIT 50;
 `;
 
 
 const BY_ID = `
     SELECT
-        *, to_char(survay_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, to_char(survay_create_date, 'HH24:MI/MM.DD.YYYY')
     FROM
         survays
     WHERE
@@ -122,6 +123,30 @@ const DELETE_SURVAY = `
     RETURNING *;
 `
 
+const SURVAY_LIMIT_NEXT =`
+    SELECT
+        *, to_char(survay_create_date, 'HH24:MI/MM.DD.YYYY')
+    FROM
+        survays
+    WHERE
+        survay_id < $1
+    ORDER BY
+        survay_id DESC
+    LIMIT 50;
+`
+
+const SURVAY_LIMIT_PREV =`
+    SELECT
+        *, to_char(survay_create_date, 'HH24:MI/MM.DD.YYYY')
+    FROM
+        survays
+    WHERE
+        survay_id > $1
+    ORDER BY
+        survay_id DESC
+    LIMIT 50;
+`
+
 const getAll = () => fetchALL(All_SURVAYS_ADMIN)
 const getStatus = () => fetchALL(All_SURVAYS_STATUS)
 const getById = (id) => fetchALL(BY_ID, id)
@@ -129,6 +154,8 @@ const postSurvay = (title, v1, v2, v3, v4, v5, survay_male, survay_female, min_a
 const putSurvay = (id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment, app_key, user_id) => fetch(UPDATE_SURVAY, id, title, v1, v2, v3, v4, v5, survay_male, survay_female, min_age, max_age, survay_iscomment, country, city, limit, filter, main, v6_comment, app_key, user_id)
 const updateStatus = (id, status) => fetch(SURVAY_UPDATE_STATUS, id, status)
 const deleteSurvay = (id) => fetch(DELETE_SURVAY, id)
+const surveyLimitNext = (id) => fetchALL(SURVAY_LIMIT_NEXT, id)
+const surveyLimitPrev = (id) => fetchALL(SURVAY_LIMIT_PREV, id)
 
 module.exports = {
     getById,
@@ -137,5 +164,7 @@ module.exports = {
     postSurvay,
     putSurvay,
     updateStatus,
-    deleteSurvay
+    deleteSurvay,
+    surveyLimitNext,
+    surveyLimitPrev
 }

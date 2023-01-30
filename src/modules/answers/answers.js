@@ -3,7 +3,7 @@ const model = require('./model')
 module.exports = {
     GET_ANSWERS: async (req, res) => {
         try {
-            const { survayId, userId, answer } = req.query
+            const { survayId, userId, answer, position, answerId } = req.query
 
             if (survayId && answer == 6) {
                 const getbySurvayIdV6Comment = await model.getbySurvayIdV6Comment(Number(survayId))
@@ -79,6 +79,20 @@ module.exports = {
                         message: "Not found",
                     })
                 }
+            } else if (position === 'next' && answerId) {
+                const answerLimitNext = await model.answerLimitNext(answerId)
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: answerLimitNext
+                })
+            } else if (position === 'prev' && answerId) {
+                const answerLimitPrev = await model.answerLimitPrev(answerId)
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: answerLimitPrev
+                })
             } else {
                 const getAllSurvays = await model.getAllSurvays()
                 if (getAllSurvays) {

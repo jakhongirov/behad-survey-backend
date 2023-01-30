@@ -12,7 +12,8 @@ const All_SURVAYS = `
         survays c
     on a.survay_id = c.survay_id
     ORDER BY
-        a.survay_user_id DESC;
+        a.survay_user_id DESC
+    LIMIT 50;
 `;
 
 const SURVAYS_ID = `
@@ -266,6 +267,46 @@ const USER_BY_ID = `
         user_id DESC;
 `;
 
+const ANSWER_LIMIT_NEXT =`
+    select 
+        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        survay_users a
+    inner join
+    users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        survays c
+    on 
+        a.survay_id = c.survay_id
+    WHERE
+        a.survay_user_id < $1            
+    ORDER BY
+        a.survay_user_id DESC
+    LIMIT 50;
+`
+
+const ANSWER_LIMIT_PREV =`
+    select 
+        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        survay_users a
+    inner join
+    users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        survays c
+    on 
+        a.survay_id = c.survay_id
+    WHERE
+        a.survay_user_id > $1            
+    ORDER BY
+        a.survay_user_id DESC
+    LIMIT 50;
+`
+
 const getAllSurvays = () => fetchALL(All_SURVAYS)
 const getbySurvayId = (survayId) => fetchALL(SURVAYS_ID, survayId)
 const getbyUseryId = (userId) => fetchALL(USERS_ID, userId)
@@ -284,6 +325,8 @@ const getbySurvayIdV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT, sur
 const getbyMaleWithV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT_MALE, survayId)
 const getbyFemaleWithV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT_FEMALE, survayId)
 const getUserById = (id) => fetch(USER_BY_ID, id)
+const answerLimitNext = (id) => fetchALL(ANSWER_LIMIT_NEXT, id)
+const answerLimitPrev = (id) => fetchALL(ANSWER_LIMIT_PREV, id)
 
 module.exports = {
     getAllSurvays,
@@ -303,5 +346,7 @@ module.exports = {
     getbySurvayIdV6Comment,
     getbyMaleWithV6Comment,
     getbyFemaleWithV6Comment,
-    getUserById
+    getUserById,
+    answerLimitNext,
+    answerLimitPrev
 }

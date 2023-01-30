@@ -3,8 +3,23 @@ const model = require('./model')
 module.exports = {
     GET_SURVAY: async (req, res) => {
         try {
-            const { id } = req.query
-            if (id) {
+            const { id, position } = req.query
+
+            if (position === 'next' && id) {
+                const surveyLimitNext = await model.surveyLimitNext(id)
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: surveyLimitNext
+                })
+            } else if (position === 'prev' && id) {
+                const surveyLimitPrev = await model.surveyLimitPrev(id)
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: surveyLimitPrev
+                })
+            } else if (id) {
                 const getById = await model.getById(id)
                 return res.json({
                     status: 200,
