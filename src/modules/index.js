@@ -11,7 +11,7 @@ router
     .put('/updatesurvay', survay.PUT_SURVAY)
     .put('/updateSurvayStatus', survay.PUT_SURVAY_STATUS)
     .delete('/deletesurvay', survay.DELETE_SURVAY)
-    .put('/updateView', survay.UPDATE_VIEW)
+    .get('/updateView', survay.UPDATE_VIEW)
 
     .get('/answers', asnwer.GET_ANSWERS)
     .post('/addAnswer', asnwer.POST_ANSWERS);
