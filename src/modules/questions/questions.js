@@ -162,5 +162,34 @@ module.exports = {
                 message: "Internal Server Error",
             })
         }
+    },
+
+    UPDATE_VIEW: async (req, res) => {
+        try {
+            const { id } = req.query
+
+            if (id) {
+                const updateView = await model.updateView(id)
+
+                if(updateView) {
+                    return res.json({
+                        status: 200,
+                        message: "Success"
+                    })
+                } else {
+                    return res.json({
+                        status: 404,
+                        message: "Bad request"
+                    })
+                }
+            }
+
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: 500,
+                message: "Internal Server Error",
+            })
+        }
     }
 }
