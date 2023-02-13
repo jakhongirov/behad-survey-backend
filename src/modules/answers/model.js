@@ -2,7 +2,7 @@ const { fetch, fetchALL } = require("../../lib/postgres");
 
 const All_SURVAYS = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -18,7 +18,7 @@ const All_SURVAYS = `
 
 const SURVAYS_ID = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
      from
         survay_users a
      inner join
@@ -35,7 +35,7 @@ const SURVAYS_ID = `
 
 const USERS_ID = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -52,7 +52,7 @@ const USERS_ID = `
 
 const SURVAYS_ID_ANSWER = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -69,7 +69,7 @@ const SURVAYS_ID_ANSWER = `
 
 const SURVAYS_ID_ANSWER_MALE = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -85,7 +85,7 @@ const SURVAYS_ID_ANSWER_MALE = `
 `;
 const SURVAYS_ID_MALE = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -102,7 +102,7 @@ const SURVAYS_ID_MALE = `
 
 const SURVAYS_ID_ANSWER_FEMALE = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -119,7 +119,7 @@ const SURVAYS_ID_ANSWER_FEMALE = `
 
 const SURVAYS_ID_FEMALE = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -207,7 +207,7 @@ const ADD_COMMENT = `
 
 const SURVAYS_ID_V6_COMMENT = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -224,7 +224,7 @@ const SURVAYS_ID_V6_COMMENT = `
 
 const SURVAYS_ID_V6_COMMENT_MALE = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -241,7 +241,7 @@ const SURVAYS_ID_V6_COMMENT_MALE = `
 
 const SURVAYS_ID_V6_COMMENT_FEMALE = `
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -269,7 +269,7 @@ const USER_BY_ID = `
 
 const ANSWER_LIMIT_NEXT =`
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
@@ -289,7 +289,7 @@ const ANSWER_LIMIT_NEXT =`
 
 const ANSWER_LIMIT_PREV =`
     select 
-        *, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
     from
         survay_users a
     inner join
