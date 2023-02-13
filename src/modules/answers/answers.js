@@ -355,4 +355,34 @@ module.exports = {
         }
     },
 
+
+    GET_USERS_ID: async (req, res) => {
+        try {
+            const { survayId, answer } = req.query
+
+            if (survayId, answer) {
+                const getUsersId = await model.getUsersId(survayId, answer)
+
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: getUsersId
+                })                
+
+            } else {
+                return res.json({
+                    status: 400,
+                    message: "Bad request"
+                })
+            }
+
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: 500,
+                message: "Internal Server Error",
+            })
+        }
+    }
+
 }

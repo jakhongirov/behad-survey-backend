@@ -307,6 +307,23 @@ const ANSWER_LIMIT_PREV =`
     LIMIT 50;
 `
 
+const GET_USERS_ID  = `
+    select 
+        a.user_id as id
+    from
+        survay_users a
+        inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        survays c
+    on 
+        a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.survay_answer = $2;
+`
+
 const getAllSurvays = () => fetchALL(All_SURVAYS)
 const getbySurvayId = (survayId) => fetchALL(SURVAYS_ID, survayId)
 const getbyUseryId = (userId) => fetchALL(USERS_ID, userId)
@@ -327,6 +344,7 @@ const getbyFemaleWithV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT_FE
 const getUserById = (id) => fetch(USER_BY_ID, id)
 const answerLimitNext = (id) => fetchALL(ANSWER_LIMIT_NEXT, id)
 const answerLimitPrev = (id) => fetchALL(ANSWER_LIMIT_PREV, id)
+const getUsersId = (survayId, answer) => fetchALL(GET_USERS_ID, survayId, answer)
 
 module.exports = {
     getAllSurvays,
@@ -348,5 +366,6 @@ module.exports = {
     getbyFemaleWithV6Comment,
     getUserById,
     answerLimitNext,
-    answerLimitPrev
+    answerLimitPrev,
+    getUsersId
 }
