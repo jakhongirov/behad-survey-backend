@@ -50,6 +50,7 @@ module.exports = {
                 })
 
             } else if (answer && survayId) {
+                const getbySurvayIdAnswer = await model.getbySurvayIdAnswer(Number(survayId), Number(answer))
                 const getbyMaleWithAnswer = await model.getbyMaleWithAnswer(Number(survayId), Number(answer))
                 const getbyFemaleWithAnswer = await model.getbyFemaleWithAnswer(Number(survayId), Number(answer))
 
