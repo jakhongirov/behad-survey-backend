@@ -1,21 +1,5 @@
 const { fetch, fetchALL } = require("../../lib/postgres");
 
-const All_SURVAYS = `
-    select 
-        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
-    from
-        survay_users a
-    inner join
-        users b
-    on a.user_id = b.user_id
-    inner join
-        survays c
-    on a.survay_id = c.survay_id
-    ORDER BY
-        a.survay_user_id DESC
-    LIMIT 50;
-`;
-
 const SURVAYS_ID = `
     select 
         *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
@@ -63,6 +47,57 @@ const SURVAYS_ID_ANSWER = `
     on a.survay_id = c.survay_id
     where
         a.survay_id = $1 and a.survay_answer = $2
+    ORDER BY
+        a.survay_user_id DESC;
+`;
+
+const SURVAYS_ID_ANSWER_MIN_AGE = `
+    select 
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        survay_users a
+    inner join
+        users b
+    on a.user_id = b.user_id
+    inner join
+        survays c
+    on a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.survay_answer = $2 and b.user_age = $3
+    ORDER BY
+        a.survay_user_id DESC;
+`;
+
+const SURVAYS_ID_ANSWER_MAX_AGE = `
+    select 
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        survay_users a
+    inner join
+        users b
+    on a.user_id = b.user_id
+    inner join
+        survays c
+    on a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.survay_answer = $2 and b.user_age = $3
+    ORDER BY
+        a.survay_user_id DESC;
+`;
+
+const SURVAYS_ID_ANSWER_MIN_MAX_AGE = `
+    select 
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        survay_users a
+    inner join
+        users b
+    on a.user_id = b.user_id
+    inner join
+        survays c
+    on a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.survay_answer = $2 and b.user_age > $3 and b.user_age < $4
     ORDER BY
         a.survay_user_id DESC;
 `;
@@ -267,47 +302,7 @@ const USER_BY_ID = `
         user_id DESC;
 `;
 
-const ANSWER_LIMIT_NEXT =`
-    select 
-        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
-    from
-        survay_users a
-    inner join
-    users b
-    on 
-        a.user_id = b.user_id
-    inner join
-        survays c
-    on 
-        a.survay_id = c.survay_id
-    WHERE
-        a.survay_user_id < $1            
-    ORDER BY
-        a.survay_user_id DESC
-    LIMIT 50;
-`
-
-const ANSWER_LIMIT_PREV =`
-    select 
-        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
-    from
-        survay_users a
-    inner join
-    users b
-    on 
-        a.user_id = b.user_id
-    inner join
-        survays c
-    on 
-        a.survay_id = c.survay_id
-    WHERE
-        a.survay_user_id > $1            
-    ORDER BY
-        a.survay_user_id DESC
-    LIMIT 50;
-`
-
-const GET_USERS_ID  = `
+const GET_USERS_ID = `
     select 
         a.user_id as id
     from
@@ -324,7 +319,6 @@ const GET_USERS_ID  = `
         a.survay_id = $1 and a.survay_answer = $2;
 `
 
-const getAllSurvays = () => fetchALL(All_SURVAYS)
 const getbySurvayId = (survayId) => fetchALL(SURVAYS_ID, survayId)
 const getbyUseryId = (userId) => fetchALL(USERS_ID, userId)
 const getbySurvayIdAnswer = (survayId, answer) => fetchALL(SURVAYS_ID_ANSWER, survayId, answer)
@@ -342,12 +336,12 @@ const getbySurvayIdV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT, sur
 const getbyMaleWithV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT_MALE, survayId)
 const getbyFemaleWithV6Comment = (survayId) => fetchALL(SURVAYS_ID_V6_COMMENT_FEMALE, survayId)
 const getUserById = (id) => fetch(USER_BY_ID, id)
-const answerLimitNext = (id) => fetchALL(ANSWER_LIMIT_NEXT, id)
-const answerLimitPrev = (id) => fetchALL(ANSWER_LIMIT_PREV, id)
 const getUsersId = (survayId, answer) => fetchALL(GET_USERS_ID, survayId, answer)
+const getbySurvayIdAnswerFilterByMin = (survayId, answer, min) => fetchALL(SURVAYS_ID_ANSWER_MIN_AGE, survayId, answer, min)
+const getbySurvayIdAnswerFilterByMax = (survayId, answer, max) => fetchALL(SURVAYS_ID_ANSWER_MAX_AGE, survayId, answer, max)
+const getbySurvayIdAnswerFilterByMaxMin = (survayId, answer, max, min) => fetchALL(SURVAYS_ID_ANSWER_MIN_MAX_AGE, survayId, answer, max, min)
 
 module.exports = {
-    getAllSurvays,
     getbySurvayId,
     getbyUseryId,
     addAnswer,
@@ -365,7 +359,8 @@ module.exports = {
     getbyMaleWithV6Comment,
     getbyFemaleWithV6Comment,
     getUserById,
-    answerLimitNext,
-    answerLimitPrev,
-    getUsersId
+    getUsersId,
+    getbySurvayIdAnswerFilterByMin,
+    getbySurvayIdAnswerFilterByMax,
+    getbySurvayIdAnswerFilterByMaxMin
 }

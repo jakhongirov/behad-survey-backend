@@ -3,7 +3,7 @@ const model = require('./model')
 module.exports = {
     GET_ANSWERS: async (req, res) => {
         try {
-            const { survayId, userId, answer, position, answerId } = req.query
+            const { survayId, userId, answer, max, min } = req.query
 
             if (survayId && answer == 6) {
                 const getbySurvayIdV6Comment = await model.getbySurvayIdV6Comment(Number(survayId))
@@ -26,8 +26,30 @@ module.exports = {
                     })
                 }
 
+            } else if (answer && survayId || min || max) {
+                if (max && min) {
+                    const getbySurvayIdAnswerFilterByMaxMin = await model.getbySurvayIdAnswerFilterByMaxMin(Number(survayId), Number(answer), Number(max), Number(min))
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: getbySurvayIdAnswerFilterByMaxMin
+                    })
+                } else if (max) {
+                    const getbySurvayIdAnswerFilterByMax = await model.getbySurvayIdAnswerFilterByMax(Number(survayId), Number(answer), Number(max))
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: getbySurvayIdAnswerFilterByMax
+                    })
+                } else if (min) {
+                    const getbySurvayIdAnswerFilterByMin = await model.getbySurvayIdAnswerFilterByMin(Number(survayId), Number(answer), Number(min))
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: getbySurvayIdAnswerFilterByMin
+                    })
+                }
             } else if (answer && survayId) {
-                const getbySurvayIdAnswer = await model.getbySurvayIdAnswer(Number(survayId), Number(answer))
                 const getbyMaleWithAnswer = await model.getbyMaleWithAnswer(Number(survayId), Number(answer))
                 const getbyFemaleWithAnswer = await model.getbyFemaleWithAnswer(Number(survayId), Number(answer))
 
@@ -72,34 +94,6 @@ module.exports = {
                         status: 200,
                         message: "Success",
                         data: getbyUseryId
-                    })
-                } else {
-                    return res.json({
-                        status: 404,
-                        message: "Not found",
-                    })
-                }
-            } else if (position === 'next' && answerId) {
-                const answerLimitNext = await model.answerLimitNext(answerId)
-                return res.json({
-                    status: 200,
-                    message: "Success",
-                    data: answerLimitNext
-                })
-            } else if (position === 'prev' && answerId) {
-                const answerLimitPrev = await model.answerLimitPrev(answerId)
-                return res.json({
-                    status: 200,
-                    message: "Success",
-                    data: answerLimitPrev
-                })
-            } else {
-                const getAllSurvays = await model.getAllSurvays()
-                if (getAllSurvays) {
-                    return res.json({
-                        status: 200,
-                        message: "Success",
-                        data: getAllSurvays
                     })
                 } else {
                     return res.json({
@@ -367,7 +361,7 @@ module.exports = {
                     status: 200,
                     message: "Success",
                     data: getUsersId
-                })                
+                })
 
             } else {
                 return res.json({
