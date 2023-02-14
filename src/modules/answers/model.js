@@ -97,7 +97,7 @@ const SURVAYS_ID_ANSWER_MIN_MAX_AGE = `
         survays c
     on a.survay_id = c.survay_id
     where
-        a.survay_id = $1 and a.survay_answer = $2 and  $4 > b.user_age > $3 
+        a.survay_id = $1 and a.survay_answer = $2 and b.user_age < $3 and b.user_age > $4
     ORDER BY
         a.survay_user_id DESC;
 `;
