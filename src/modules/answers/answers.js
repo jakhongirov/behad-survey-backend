@@ -26,29 +26,29 @@ module.exports = {
                     })
                 }
 
-            } else if (answer && survayId || min || max) {
-                if (max && min) {
-                    const getbySurvayIdAnswerFilterByMaxMin = await model.getbySurvayIdAnswerFilterByMaxMin(Number(survayId), Number(answer), Number(max), Number(min))
-                    return res.json({
-                        status: 200,
-                        message: "Success",
-                        data: getbySurvayIdAnswerFilterByMaxMin
-                    })
-                } else if (max) {
-                    const getbySurvayIdAnswerFilterByMax = await model.getbySurvayIdAnswerFilterByMax(Number(survayId), Number(answer), Number(max))
-                    return res.json({
-                        status: 200,
-                        message: "Success",
-                        data: getbySurvayIdAnswerFilterByMax
-                    })
-                } else if (min) {
-                    const getbySurvayIdAnswerFilterByMin = await model.getbySurvayIdAnswerFilterByMin(Number(survayId), Number(answer), Number(min))
-                    return res.json({
-                        status: 200,
-                        message: "Success",
-                        data: getbySurvayIdAnswerFilterByMin
-                    })
-                }
+            }
+            else if (answer && survayId && max && min) {
+                const getbySurvayIdAnswerFilterByMaxMin = await model.getbySurvayIdAnswerFilterByMaxMin(Number(survayId), Number(answer), Number(max), Number(min))
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: getbySurvayIdAnswerFilterByMaxMin
+                })
+            } else if (answer && survayId && max) {
+                const getbySurvayIdAnswerFilterByMax = await model.getbySurvayIdAnswerFilterByMax(Number(survayId), Number(answer), Number(max))
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: getbySurvayIdAnswerFilterByMax
+                })
+            } else if (answer && survayId && min) {
+                const getbySurvayIdAnswerFilterByMin = await model.getbySurvayIdAnswerFilterByMin(Number(survayId), Number(answer), Number(min))
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: getbySurvayIdAnswerFilterByMin
+                })
+
             } else if (answer && survayId) {
                 const getbyMaleWithAnswer = await model.getbyMaleWithAnswer(Number(survayId), Number(answer))
                 const getbyFemaleWithAnswer = await model.getbyFemaleWithAnswer(Number(survayId), Number(answer))
