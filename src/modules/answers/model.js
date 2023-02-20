@@ -319,6 +319,19 @@ const GET_USERS_ID = `
         a.survay_id = $1 and a.survay_answer = $2;
 `
 
+const ANSWSERS_COUNT_BY_SURVEY_ID = `
+    SELECT 
+        survay_answer, count(survay_user_id) 
+    FROM 
+        survay_users 
+    where 
+        survay_id = $1 
+    group by 
+        survay_answer
+    ORDER BY
+        survay_answer;
+`;
+
 const getbySurvayId = (survayId) => fetchALL(SURVAYS_ID, survayId)
 const getbyUseryId = (userId) => fetchALL(USERS_ID, userId)
 const getbySurvayIdAnswer = (survayId, answer) => fetchALL(SURVAYS_ID_ANSWER, survayId, answer)
@@ -340,6 +353,7 @@ const getUsersId = (survayId, answer) => fetchALL(GET_USERS_ID, survayId, answer
 const getbySurvayIdAnswerFilterByMin = (survayId, answer, min) => fetchALL(SURVAYS_ID_ANSWER_MIN_AGE, survayId, answer, min)
 const getbySurvayIdAnswerFilterByMax = (survayId, answer, max) => fetchALL(SURVAYS_ID_ANSWER_MAX_AGE, survayId, answer, max)
 const getbySurvayIdAnswerFilterByMaxMin = (survayId, answer, max, min) => fetchALL(SURVAYS_ID_ANSWER_MIN_MAX_AGE, survayId, answer, max, min)
+const answersCountBySurveyId = (id) => fetchALL(ANSWSERS_COUNT_BY_SURVEY_ID, id)
 
 module.exports = {
     getbySurvayId,
@@ -362,5 +376,6 @@ module.exports = {
     getUsersId,
     getbySurvayIdAnswerFilterByMin,
     getbySurvayIdAnswerFilterByMax,
-    getbySurvayIdAnswerFilterByMaxMin
+    getbySurvayIdAnswerFilterByMaxMin,
+    answersCountBySurveyId
 }

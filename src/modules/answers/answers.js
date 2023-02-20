@@ -350,7 +350,6 @@ module.exports = {
         }
     },
 
-
     GET_USERS_ID: async (req, res) => {
         try {
             const { survayId, answer } = req.query
@@ -363,6 +362,42 @@ module.exports = {
                     message: "Success",
                     data: getUsersId
                 })
+
+            } else {
+                return res.json({
+                    status: 400,
+                    message: "Bad request"
+                })
+            }
+
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: 500,
+                message: "Internal Server Error",
+            })
+        }
+    },
+
+    GET_ANSWERS_COUNT: async (req, res) => {
+        try {
+            const { surveyId } = req.query
+
+            if (surveyId) {
+                const answersCountBySurveyId = await model.answersCountBySurveyId(surveyId)
+
+                if(answersCountBySurveyId) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: answersCountBySurveyId
+                    })
+                } else {
+                    return res.json({
+                        status: 404,
+                        message: "Not found"
+                    })
+                }
 
             } else {
                 return res.json({

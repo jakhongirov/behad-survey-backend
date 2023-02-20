@@ -15,8 +15,9 @@ router
     .delete('/deletesurvay', AUTH, survay.DELETE_SURVAY)
     .get('/updateView', survay.UPDATE_VIEW)
 
-    .get('/answers', asnwer.GET_ANSWERS)
-    .get('/answersUsersId', asnwer.GET_USERS_ID)
+    .get('/answers', AUTH, asnwer.GET_ANSWERS)
+    .get('/answersUsersId', AUTH, asnwer.GET_USERS_ID)
+    .get('/answersCount', asnwer.GET_ANSWERS_COUNT)
     .post('/addAnswer', asnwer.POST_ANSWERS);
 
 module.exports = router
