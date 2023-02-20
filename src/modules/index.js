@@ -8,6 +8,7 @@ const asnwer = require('./answers/answers')
 router
     .get('/survays', survay.GET_SURVAY)
     .get('/survaysAdmin', AUTH, survay.GET_SURVAY_ADMIN)
+    .get('/survaysAdmin/data', AUTH, survay.GET_SURVEY_SIMPLE_DATA)
     .post('/Addsurvay', AUTH, survay.ADD_SURVAY)
     .put('/updatesurvay', AUTH, survay.PUT_SURVAY)
     .put('/updateSurvayStatus', AUTH, survay.PUT_SURVAY_STATUS)

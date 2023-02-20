@@ -156,6 +156,15 @@ const UPDATE_VIEW = `
         survay_id = $1 RETURNING * ;
 `
 
+const SURVAY_SIMPLE_DATA = `
+    SELECT 
+        survay_id, survay_title
+    FROM 
+        survays
+    ORDER BY
+        survay_id  desc
+`
+
 const getAll = () => fetchALL(All_SURVAYS_ADMIN)
 const getStatus = () => fetchALL(All_SURVAYS_STATUS)
 const getById = (id) => fetchALL(BY_ID, id)
@@ -166,6 +175,7 @@ const deleteSurvay = (id) => fetch(DELETE_SURVAY, id)
 const surveyLimitNext = (id) => fetchALL(SURVAY_LIMIT_NEXT, id)
 const surveyLimitPrev = (id) => fetchALL(SURVAY_LIMIT_PREV, id)
 const updateView = (id) => fetch(UPDATE_VIEW, id)
+const getSurveyData = () => fetchALL(SURVAY_SIMPLE_DATA)
 
 module.exports = {
     getById,
@@ -177,5 +187,6 @@ module.exports = {
     deleteSurvay,
     surveyLimitNext,
     surveyLimitPrev,
-    updateView
+    updateView,
+    getSurveyData
 }

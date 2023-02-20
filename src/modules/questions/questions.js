@@ -171,7 +171,7 @@ module.exports = {
             if (id) {
                 const updateView = await model.updateView(id)
 
-                if(updateView) {
+                if (updateView) {
                     return res.json({
                         status: 200,
                         message: "Success"
@@ -184,6 +184,26 @@ module.exports = {
                 }
             }
 
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: 500,
+                message: "Internal Server Error",
+            })
+        }
+    },
+
+    GET_SURVEY_SIMPLE_DATA: async (_, res) => {
+        try {
+            const surveys = await model.getSurveyData()
+
+            if (surveys) {
+                return res.json({
+                    status: 200,
+                    message: "Success",
+                    data: surveys
+                })
+            }
         } catch (error) {
             console.log(error)
             res.json({
