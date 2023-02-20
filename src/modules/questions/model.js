@@ -161,6 +161,8 @@ const SURVAY_SIMPLE_DATA = `
         survay_id, survay_title
     FROM 
         survays
+    WHERE
+        survay_active = true
     ORDER BY
         survay_id  desc
 `
