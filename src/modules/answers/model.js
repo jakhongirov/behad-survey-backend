@@ -321,7 +321,7 @@ const GET_USERS_ID = `
 
 const ANSWSERS_COUNT_BY_SURVEY_ID = `
     SELECT 
-        survay_answer, count(survay_user_id) 
+        survay_answer, count(survay_user_id)::int
     FROM 
         survay_users 
     where 

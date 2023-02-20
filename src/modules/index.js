@@ -17,7 +17,7 @@ router
 
     .get('/answers', AUTH, asnwer.GET_ANSWERS)
     .get('/answersUsersId', AUTH, asnwer.GET_USERS_ID)
-    .get('/answersCount', asnwer.GET_ANSWERS_COUNT)
+    .get('/answersCount', AUTH, asnwer.GET_ANSWERS_COUNT)
     .post('/addAnswer', asnwer.POST_ANSWERS);
 
 module.exports = router
