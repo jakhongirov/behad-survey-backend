@@ -71,7 +71,7 @@ module.exports = {
             } else if (answer && survayId && sort == 'country') {
                 const getbySurvayIdAnswerCountry = await model.getbySurvayIdAnswerCountry(Number(survayId), Number(answer))
 
-                if (getbySurvayIdAnswerCount) {
+                if (getbySurvayIdAnswerCountry) {
                     return res.json({
                         status: 200,
                         message: "Success",
@@ -86,7 +86,7 @@ module.exports = {
             } else if (answer && survayId && country && sort == 'city') {
                 const getbySurvayIdAnswerCountryCity = await model.getbySurvayIdAnswerCountryCity(Number(survayId), Number(answer), country)
 
-                if (getbySurvayIdAnswerCount) {
+                if (getbySurvayIdAnswerCountryCity) {
                     return res.json({
                         status: 200,
                         message: "Success",
@@ -101,7 +101,7 @@ module.exports = {
             } else if (answer && survayId && city && sort == 'city') {
                 const getbySurvayIdAnswerCityUsers = await model.getbySurvayIdAnswerCityUsers(Number(survayId), Number(answer), city)
 
-                if (getbySurvayIdAnswerCount) {
+                if (getbySurvayIdAnswerCityUsers) {
                     return res.json({
                         status: 200,
                         message: "Success",
