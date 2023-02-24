@@ -467,9 +467,9 @@ const answersCountBySurveyId = (id) => fetchALL(ANSWSERS_COUNT_BY_SURVEY_ID, id)
 const getbySurvayIdAnswerCount = (survayId, answer) => fetch(SURVAYS_ID_ANSWER_COUNT, survayId, answer)
 const getbyMaleWithAnswerCount = (survayId, answer) => fetch(SURVAYS_ID_ANSWER_MALE_COUNT, survayId, answer)
 const getbyFemaleWithAnswerCount = (survayId, answer) => fetch(SURVAYS_ID_ANSWER_FEMALE_COUNT, survayId, answer)
-const getbySurvayIdAnswerCountry = (survayId, answer) => fetch(SURVAYS_ID_ANSWER_COUNTRY, survayId, answer)
-const getbySurvayIdAnswerCountryCity = (survayId, answer, country) => fetch(SURVAYS_ID_ANSWER_CITY, survayId, answer, country)
-const getbySurvayIdAnswerCityUsers = (survayId, answer, city) => fetch(SURVAYS_ID_ANSWER_CITY_USERS, survayId, answer, city)
+const getbySurvayIdAnswerCountry = (survayId, answer) => fetchALL(SURVAYS_ID_ANSWER_COUNTRY, survayId, answer)
+const getbySurvayIdAnswerCountryCity = (survayId, answer, country) => fetchALL(SURVAYS_ID_ANSWER_CITY, survayId, answer, country)
+const getbySurvayIdAnswerCityUsers = (survayId, answer, city) => fetchALL(SURVAYS_ID_ANSWER_CITY_USERS, survayId, answer, city)
 
 module.exports = {
     getbySurvayId,
