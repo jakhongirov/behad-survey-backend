@@ -3,7 +3,7 @@ const model = require('./model')
 module.exports = {
     GET_ANSWERS: async (req, res) => {
         try {
-            const { survayId, userId, answer, max, min } = req.query
+            const { survayId, userId, answer, max, min, sort, country, city } = req.query
 
             if (survayId && answer == 6) {
                 const getbySurvayIdV6Comment = await model.getbySurvayIdV6Comment(Number(survayId))
@@ -49,19 +49,78 @@ module.exports = {
                     data: getbySurvayIdAnswerFilterByMin
                 })
 
+            } else if (answer && survayId && sort == 'count') {
+                const getbySurvayIdAnswerCount = await model.getbySurvayIdAnswerCount(Number(survayId), Number(answer))
+                const getbyMaleWithAnswerCount = await model.getbyMaleWithAnswerCount(Number(survayId), Number(answer))
+                const getbyFemaleWithAnswerCount = await model.getbyFemaleWithAnswerCount(Number(survayId), Number(answer))
+
+                if (getbySurvayIdAnswerCount) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        count: getbySurvayIdAnswerCount.count,
+                        male: getbyMaleWithAnswerCount.count,
+                        female: getbyFemaleWithAnswerCount.count
+                    })
+                } else {
+                    return res.json({
+                        status: 404,
+                        message: "Not found",
+                    })
+                }
+            } else if (answer && survayId && sort == 'country') {
+                const getbySurvayIdAnswerCountry = await model.getbySurvayIdAnswerCountry(Number(survayId), Number(answer))
+
+                if (getbySurvayIdAnswerCount) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: getbySurvayIdAnswerCountry
+                    })
+                } else {
+                    return res.json({
+                        status: 404,
+                        message: "Not found",
+                    })
+                }
+            } else if (answer && survayId && country && sort == 'city') {
+                const getbySurvayIdAnswerCountryCity = await model.getbySurvayIdAnswerCountryCity(Number(survayId), Number(answer), country)
+
+                if (getbySurvayIdAnswerCount) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: getbySurvayIdAnswerCountryCity
+                    })
+                } else {
+                    return res.json({
+                        status: 404,
+                        message: "Not found",
+                    })
+                }
+            } else if (answer && survayId && city && sort == 'city') {
+                const getbySurvayIdAnswerCityUsers = await model.getbySurvayIdAnswerCityUsers(Number(survayId), Number(answer), city)
+
+                if (getbySurvayIdAnswerCount) {
+                    return res.json({
+                        status: 200,
+                        message: "Success",
+                        data: getbySurvayIdAnswerCityUsers
+                    })
+                } else {
+                    return res.json({
+                        status: 404,
+                        message: "Not found",
+                    })
+                }
             } else if (answer && survayId) {
                 const getbySurvayIdAnswer = await model.getbySurvayIdAnswer(Number(survayId), Number(answer))
-                const getbyMaleWithAnswer = await model.getbyMaleWithAnswer(Number(survayId), Number(answer))
-                const getbyFemaleWithAnswer = await model.getbyFemaleWithAnswer(Number(survayId), Number(answer))
 
                 if (getbySurvayIdAnswer) {
                     return res.json({
                         status: 200,
                         message: "Success",
                         data: getbySurvayIdAnswer,
-                        count: getbySurvayIdAnswer.length,
-                        male: getbyMaleWithAnswer.length,
-                        female: getbyFemaleWithAnswer.length
                     })
                 } else {
                     return res.json({
@@ -386,7 +445,7 @@ module.exports = {
             if (surveyId) {
                 const answersCountBySurveyId = await model.answersCountBySurveyId(surveyId)
 
-                if(answersCountBySurveyId) {
+                if (answersCountBySurveyId) {
                     return res.json({
                         status: 200,
                         message: "Success",

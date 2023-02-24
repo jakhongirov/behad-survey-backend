@@ -118,6 +118,7 @@ const SURVAYS_ID_ANSWER_MALE = `
     ORDER BY
         a.survay_user_id DESC;
 `;
+
 const SURVAYS_ID_MALE = `
     select 
         *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
@@ -332,6 +333,114 @@ const ANSWSERS_COUNT_BY_SURVEY_ID = `
         survay_answer;
 `;
 
+const SURVAYS_ID_ANSWER_COUNT = `
+    select 
+        count(b.user_id)
+    from
+        survay_users a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        survays c
+    on 
+        a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.survay_answer = $2;
+`;
+
+const SURVAYS_ID_ANSWER_MALE_COUNT = `
+    select 
+        count(b.user_id)
+    from
+        survay_users a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        survays c
+    on 
+        a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.survay_answer = $2 and b.user_who = 'erkak';
+`;
+
+const SURVAYS_ID_ANSWER_FEMALE_COUNT = `
+    select 
+        count(b.user_id)
+    from
+        survay_users a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        survays c
+    on 
+        a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.survay_answer = $2 and b.user_who = 'ayol';
+`;
+
+const SURVAYS_ID_ANSWER_COUNTRY = `
+    select 
+        b.user_country, count(b.user_id)
+    from
+        survay_users a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        survays c
+    on 
+        a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.survay_answer = $2
+    GROUP BY
+        b.user_country;
+`;
+
+const SURVAYS_ID_ANSWER_CITY = `
+    select 
+        b.user_capital, count(b.user_id)
+    from
+        survay_users a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        survays c
+    on 
+        a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.survay_answer = $2 and b.user_country = $3
+    GROUP BY
+        b.user_capital;
+`;
+
+const SURVAYS_ID_ANSWER_CITY_USERS = `
+    select 
+        *, a.user_id as id, to_char(survay_users_create_date, 'HH24:MM/MM.DD.YYYY')
+    from
+        survay_users a
+    inner join
+        users b
+    on 
+        a.user_id = b.user_id
+    inner join
+        survays c
+    on 
+        a.survay_id = c.survay_id
+    where
+        a.survay_id = $1 and a.survay_answer = $2 and b.user_capital = $3
+    ORDER BY
+        a.survay_user_id DESC;
+`;
+
 const getbySurvayId = (survayId) => fetchALL(SURVAYS_ID, survayId)
 const getbyUseryId = (userId) => fetchALL(USERS_ID, userId)
 const getbySurvayIdAnswer = (survayId, answer) => fetchALL(SURVAYS_ID_ANSWER, survayId, answer)
@@ -355,6 +464,13 @@ const getbySurvayIdAnswerFilterByMax = (survayId, answer, max) => fetchALL(SURVA
 const getbySurvayIdAnswerFilterByMaxMin = (survayId, answer, max, min) => fetchALL(SURVAYS_ID_ANSWER_MIN_MAX_AGE, survayId, answer, max, min)
 const answersCountBySurveyId = (id) => fetchALL(ANSWSERS_COUNT_BY_SURVEY_ID, id)
 
+const getbySurvayIdAnswerCount = (survayId, answer) => fetch(SURVAYS_ID_ANSWER_COUNT, survayId, answer)
+const getbyMaleWithAnswerCount = (survayId, answer) => fetch(SURVAYS_ID_ANSWER_MALE_COUNT, survayId, answer)
+const getbyFemaleWithAnswerCount = (survayId, answer) => fetch(SURVAYS_ID_ANSWER_FEMALE_COUNT, survayId, answer)
+const getbySurvayIdAnswerCountry = (survayId, answer) => fetch(SURVAYS_ID_ANSWER_COUNTRY, survayId, answer)
+const getbySurvayIdAnswerCountryCity = (survayId, answer, country) => fetch(SURVAYS_ID_ANSWER_CITY, survayId, answer, country)
+const getbySurvayIdAnswerCityUsers = (survayId, answer, city) => fetch(SURVAYS_ID_ANSWER_CITY_USERS, survayId, answer, city)
+
 module.exports = {
     getbySurvayId,
     getbyUseryId,
@@ -377,5 +493,11 @@ module.exports = {
     getbySurvayIdAnswerFilterByMin,
     getbySurvayIdAnswerFilterByMax,
     getbySurvayIdAnswerFilterByMaxMin,
-    answersCountBySurveyId
+    answersCountBySurveyId,
+    getbySurvayIdAnswerCount,
+    getbyMaleWithAnswerCount,
+    getbyFemaleWithAnswerCount,
+    getbySurvayIdAnswerCountry,
+    getbySurvayIdAnswerCountryCity,
+    getbySurvayIdAnswerCityUsers
 }
